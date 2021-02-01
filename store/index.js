@@ -6,9 +6,13 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		hasLogin: false,
-		openid:''
+		openid:'',
+		requestStatus:-1
 	},
 	mutations: {
+		requestStatus(state, provider) {
+			state.requestStatus = provider;
+		},
 		login(state, provider) {
 			console.log(provider)
 			state.hasLogin = provider;

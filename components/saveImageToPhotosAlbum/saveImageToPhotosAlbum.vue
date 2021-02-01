@@ -1,7 +1,11 @@
 <template>
 	<block>
-		<button :class="className" type="default" open-type="openSetting" v-if="iswritePhotosAlbum==false" @opensetting="settingSavePoster"><slot></slot></button>
-		<view :class="className" @click="savePoster" v-if="iswritePhotosAlbum!=false"><slot></slot></view>
+		<button :class="className" type="default" open-type="openSetting" v-if="status==false" @opensetting="settingSavePoster">
+			<slot></slot>
+		</button>
+		<view :class="className" @click="savePoster" v-if="status!=false">
+			<slot></slot>
+		</view>
 	</block>
 </template>
 
@@ -11,27 +15,26 @@
 			className:'',
 			url:''
 		},
-		data() {
-			return {
-				iswritePhotosAlbum:undefined
+		computed: {
+			status() {
+				return this.$saveImageToPhotosAlbum.state.status;
 			}
 		},
 		onLoad() {
 			uni.getSetting({
 				success: (res) => {
-					console.log(res)
 					if (!res.authSetting['scope.writePhotosAlbum']) {
 						uni.authorize({
 							scope: 'scope.writePhotosAlbum',
 							success: (res) => {
-								this.iswritePhotosAlbum = true;
+								this.$writePhotosAlbum.commit('status',true);
 							},
 							fail: () => {
-								this.iswritePhotosAlbum = false;
+								this.$writePhotosAlbum.commit('status',false);
 							}
 						})
 					}
-					this.iswritePhotosAlbum = res.authSetting['scope.writePhotosAlbum']
+					this.$writePhotosAlbum.commit('status',res.authSetting['scope.writePhotosAlbum']);				
 				}
 			})
 			
@@ -40,10 +43,10 @@
 			settingSavePoster(e) {
 				console.log(e.detail.authSetting['scope.writePhotosAlbum'])
 				if (e.detail.authSetting['scope.writePhotosAlbum']) {
-					this.iswritePhotosAlbum = true;
+					this.$writePhotosAlbum.commit('status',true);
 					this.savePoster();
 				} else {
-					this.iswritePhotosAlbum = false;
+					this.$writePhotosAlbum.commit('status',false);
 					uni.showToast({
 						title: "请授权保存到相册！",
 						icon: "none"
@@ -74,7 +77,7 @@
 											icon: "none"
 										});
 									} else {
-										this.iswritePhotosAlbum = false
+										this.$writePhotosAlbum.commit('status',false);
 										uni.showToast({
 											title: "授权失败，请重新保存",
 											icon: "none"

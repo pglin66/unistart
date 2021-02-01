@@ -3,7 +3,7 @@
  * @Site：http://www.plin.cc | https://plin.github.io
  * @Author：plin
  * @License：MIT
- * @开发日期：2020-02-01
+ * @开发日期：2021-02-01
  */
 import Vuex from 'vuex';
 let request = function(obj) {
@@ -62,7 +62,7 @@ let request = function(obj) {
 export default {
     install(Vue) {
 		Vue.prototype.$requestStore = new Vuex.Store({			
-			state: {				
+			state: {
 				status:-1,//102未登录
 				route:''//异常页面地址 用于登录后跳转
 			},

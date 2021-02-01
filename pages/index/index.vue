@@ -4,15 +4,9 @@
 			<view>
 				{{requestStatus}}
 			</view>
-			<view class="" @click="login">dfadsa</view>
+
 		</view>
-		 <vus-layer>
-			 <view slot="page">
-				 <!--在这里写入页面层的html内容-->
-				 <view><input type="text" placeholder="用户名" /></view>
-				 <view><input type="text" password placeholder="密码" /></view>
-			 </view>
-		 </vus-layer>
+	
 	</mescroll-body>
 </template>
 
@@ -27,9 +21,6 @@
 			requestStatus(){
 				return this.$requestStore.state.status
 			},
-			hasLogin(){
-				return this.$store.state.hasLogin
-			}
 		},
 		onLoad() {
 			
@@ -39,9 +30,7 @@
 			})
 		},
 		methods: {
-			login(){
-				this.$store.commit('login',!this.$store.state.hasLogin)
-			},
+			
 			downCallback(){
 						
 				this.mescroll.resetUpScroll();

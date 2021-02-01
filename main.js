@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App'
+
 Vue.config.productionTip = false
 App.mpType = 'app'
+import Vuex from 'vuex';
+Vue.use(Vuex);
 
-//登录，手机绑定授权
-import store from './store'
-Vue.prototype.$store = store
 //分享
 import share from './mixin/share.js'
 Vue.mixin(share)
@@ -38,6 +38,7 @@ Vue.component('vus-layer', vusLayer); //设置组件名称
 import saveImageToPhotosAlbumInit from '@/components/saveImageToPhotosAlbum/saveImageToPhotosAlbum.js';
 Vue.use(saveImageToPhotosAlbumInit);
 
+const store = new Vuex.Store();
 const app = new Vue({
 	store,
     ...App

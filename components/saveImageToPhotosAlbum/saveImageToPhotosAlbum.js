@@ -3,7 +3,7 @@
  * @Site：http://www.plin.cc | https://plin.github.io
  * @Author：plin
  * @License：MIT
- * @开发日期：2020-02-01
+ * @开发日期：2021-02-01
  */
 import Vuex from 'vuex';
 export default {
